@@ -1,0 +1,41 @@
+---
+dependency:
+  name: galaxy
+#  options:
+#    ignore-certs: True
+#    ignore-errors: True
+#    role-file: requirements.yml
+driver:
+  name: vagrant
+  provider:
+    name: parallels
+lint:
+  name: yamllint
+  enabled: false
+platforms:
+  - name: molecule-centos
+    box: bento/centos-7
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+    enabled: false
+scenario:
+  name: default
+  test_sequence:
+    - lint
+    - destroy
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    #- idempotence
+    - side_effect
+    - lint
+    - verify
+    - destroy
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

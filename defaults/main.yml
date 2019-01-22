@@ -1,0 +1,10 @@
+---
+# defaults file for prom-mysql-exporter
+mysql_exporter_home: "/root/go/bin"
+mysql_exporter_url: "github.com/prometheus/mysql_exporter"
+mysql_exporter_user: "exporter"
+mysql_exporter_pass: "exporter"
+mysql_exporter_ip: "0.0.0.0"
+mysql_exporter_port: "9104"
+mysql_exporter_extra_flags: "--collect.info_schema.tablestats --collect.info_schema.userstats --collect.info_schema.clientstats"
+mysql_enable_userstat: true
