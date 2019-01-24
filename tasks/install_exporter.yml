@@ -1,0 +1,54 @@
+---
+- name: install git temporarely
+  yum:
+    name: git
+    state: installed
+  register: gitinstalled
+
+- name: install mysqld exporter
+  shell: "go get {{ mysqld_exporter_url }}"
+  environment:
+    PATH: "{{ ansible_env.PATH }}:{{ golang_install_path }}/bin"
+    GOPATH: "{{ golang_gopath_home }}"
+
+- name: create exporter mysql user
+  mysql_user:
+    name: "{{ mysqld_exporter_user }}"
+    password: "{{ mysqld_exporter_pass }}"
+    host: "{{ mysqld_exporter_host }}"
+    priv: "{{ mysqld_exporter_priv }}"
+
+- name: install exporter.cnf
+  template:
+    src: "mysqld_exporter.cnf.j2"
+    dest: "{{ mysqld_exporter_home }}/.mysqld_exporter.cnf"
+    group: root
+    owner: root
+    mode: 0644
+
+- name: check if supervisord conf dir is present
+  file:
+    path: "/etc/supervisor/conf.d"
+    state: directory
+
+- name: enable mysqld_exporter in supervisorctl
+  blockinfile:
+    path: /etc/supervisor/conf.d/mysqld_exporter.conf
+    state: present
+    create: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK mysqld_exporter"
+    block: |
+      [program:mysqld_exporter]
+      command={{ mysqld_exporter_home }}/mysqld_exporter --web.listen-address {{ mysqld_exporter_ip }}:{{mysqld_exporter_port }} --config.my-cnf {{ mysqld_exporter_home }}/.mysqld_exporter.cnf {{ mysqld_exporter_extra_flags }}
+      process_name=mysqld_exporter
+      autostart=true
+      autorestart=true
+      user=root
+  notify:
+  - add mysqld_exporter
+  - restart mysqld_exporter
+  - check exporter port
+
+- name: remove git if previously installed
+  yum: pkg=git state=removed
+  when: gitinstalled.changed

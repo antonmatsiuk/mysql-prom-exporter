@@ -1,2 +1,4 @@
 ---
 - name: geerlingguy.mysql
+- name: geerlingguy.supervisor
+- name: gantsign.golang

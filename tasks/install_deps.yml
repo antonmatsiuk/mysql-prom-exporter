@@ -1,0 +1,19 @@
+---
+- name: install GoLang SDK
+  include_role:
+    name: gantsign.golang
+  vars:
+    golang_gopath: "{{ golang_gopath_home }}"
+    golang_install_dir: "{{ golang_install_path }}"
+  when: golang_install
+
+- name: install supervisord
+  include_role:
+    name: geerlingguy.supervisor
+  when: supervisor_install
+
+- name: install additional packages
+  yum:
+    name:
+    - MySQL-python
+    state: installed

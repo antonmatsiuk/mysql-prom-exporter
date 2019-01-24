@@ -1,17 +1,25 @@
 ---
 # handlers file for prom-mysql-exporter
-- name: restart mysql_exporter
+
+- name: add mysqld_exporter
   supervisorctl:
-    name: mysql_exporter
+    name: mysqld_exporter
+    state: present
+  become: yes
+
+- name: restart mysqld_exporter
+  supervisorctl:
+    name: mysqld_exporter
     state: restarted
   become: yes
 
 - name: restart mysql
-    service: mysql
-    name: restarted
+  service:
+    name: "{{ mysql_deamon }}"
+    state: restarted
   become: yes
 
 - name: check exporter port
   wait_for:
-    host: "{{ mysql_exporter_ip }}"
-    port: "{{mysql_exporter_port }}"
+    host: "{{ mysqld_exporter_ip }}"
+    port: "{{mysqld_exporter_port }}"

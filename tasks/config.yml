@@ -1,9 +1,9 @@
 ---
-#- name: enable userstats mysql variable
-#  mysql_variables:
-#    variable: userstat
-#    value: "ON"
-#  when: mysql_enable_userstat
+- name: enable userstats mysql variable
+  mysql_variables:
+    variable: userstat
+    value: "ON"
+  when: mysql_enable_userstat
 
 - name: add userstats to /etc/my.cnf
   lineinfile:
@@ -12,5 +12,5 @@
     regexp: "^userstat="
     line: "userstat=ON"
     insertbefore: '^max_connections'
-  when: mysql_enable_userstat
+  when: mysql_enable_userstat and mysql_restart
   notify: restart mysql

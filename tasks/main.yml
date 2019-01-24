@@ -3,5 +3,8 @@
 - import_tasks: config.yml
   become: yes
 
-- import_tasks: install.yml
+- import_tasks: install_deps.yml
+  become: yes
+
+- import_tasks: install_exporter.yml
   become: yes
