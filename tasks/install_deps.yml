@@ -15,5 +15,5 @@
 - name: install additional packages
   yum:
     name:
-    - MySQL-python
+      - MySQL-python
     state: installed

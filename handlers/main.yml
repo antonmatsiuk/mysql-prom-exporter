@@ -5,19 +5,19 @@
   supervisorctl:
     name: mysqld_exporter
     state: present
-  become: yes
+  become: true
 
 - name: restart mysqld_exporter
   supervisorctl:
     name: mysqld_exporter
     state: restarted
-  become: yes
+  become: true
 
 - name: restart mysql
   service:
     name: "{{ mysql_deamon }}"
     state: restarted
-  become: yes
+  become: true
 
 - name: check exporter port
   wait_for:

@@ -2,8 +2,8 @@
 dependency:
   name: galaxy
   options:
-    ignore-certs: True
-    ignore-errors: True
+    ignore-certs: true
+    ignore-errors: true
     role-file: requirements.yml
 driver:
   name: vagrant
@@ -11,7 +11,7 @@ driver:
     name: parallels
 lint:
   name: yamllint
-  enabled: false
+  enabled: true
 platforms:
   - name: molecule-centos
     box: bento/centos-7
@@ -19,7 +19,7 @@ provisioner:
   name: ansible
   lint:
     name: ansible-lint
-    enabled: false
+    enabled: true
 scenario:
   name: default
   test_sequence:
@@ -30,7 +30,7 @@ scenario:
     - create
     - prepare
     - converge
-#    - idempotence
+    # - idempotence
     - side_effect
     - lint
     - verify

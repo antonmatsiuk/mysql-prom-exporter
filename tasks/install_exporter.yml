@@ -35,7 +35,7 @@
   blockinfile:
     path: /etc/supervisor/conf.d/mysqld_exporter.conf
     state: present
-    create: yes
+    create: true
     marker: "# {mark} ANSIBLE MANAGED BLOCK mysqld_exporter"
     block: |
       [program:mysqld_exporter]
@@ -45,9 +45,9 @@
       autorestart=true
       user=root
   notify:
-  - add mysqld_exporter
-  - restart mysqld_exporter
-  - check exporter port
+    - add mysqld_exporter
+    - restart mysqld_exporter
+    - check exporter port
 
 - name: remove git if previously installed
   yum: pkg=git state=removed

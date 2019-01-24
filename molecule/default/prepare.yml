@@ -8,12 +8,12 @@
       name: "{{ item }}"
       state: installed
     loop:
-    - epel-release
-    - python
-    - python-setuptools
-    - python-pip
-    become: yes
+      - epel-release
+      - python
+      - python-setuptools
+      - python-pip
+    become: true
 
   roles:
-  - role: geerlingguy.mysql
-    become: yes
+    - role: geerlingguy.mysql
+      become: true

@@ -1,10 +1,10 @@
 ---
 # tasks file for mysqld-exporter
 - import_tasks: config.yml
-  become: yes
+  become: true
 
 - import_tasks: install_deps.yml
-  become: yes
+  become: true
 
 - import_tasks: install_exporter.yml
-  become: yes
+  become: true
