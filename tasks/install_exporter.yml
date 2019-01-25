@@ -1,9 +1,6 @@
 ---
 - name: install mysqld exporter
   command: "go get {{ mysqld_exporter_url }}"
-  environment:
-    PATH: "{{ ansible_env.PATH }}:{{ golang_install_path }}/bin"
-    GOPATH: "{{ golang_gopath_home }}"
 
 - name: create exporter mysql user
   mysql_user:

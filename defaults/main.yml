@@ -2,7 +2,6 @@
 # defaults file for prom-mysql-exporter
 golang_install: true
 golang_gopath_home: "/root/go"
-golang_install_path: "/usr/local/go"
 
 supervisor_install: true
 

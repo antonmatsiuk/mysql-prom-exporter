@@ -12,7 +12,7 @@ Role Variables
 --------------
 Available variables with default values (see defaults/main.yml):
 
-Variable defines whether to install golang runtime or not, set to false if already nstalled:
+Variable defines whether to install golang runtime or not, set to false if already installed:
     
     golang_install: true
     
@@ -23,10 +23,6 @@ Variable defines whether to install supervisord or not, set to false if already 
 Location for GOPATH environment variable:
 
     golang_gopath_home: "/root/go"
-
-Golang SDK installation directory: 
-
-    golang_install_path: "/usr/local/go"
 
 Whether MySQL Daemon is restarted automatically after installation:
 
@@ -83,7 +79,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: antonmatsiuk.prom_mysql_exporter }
 
 License
 -------
