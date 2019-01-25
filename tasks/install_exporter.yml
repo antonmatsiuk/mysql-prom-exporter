@@ -1,12 +1,6 @@
 ---
-- name: install git temporarely
-  yum:
-    name: git
-    state: installed
-  register: gitinstalled
-
 - name: install mysqld exporter
-  shell: "go get {{ mysqld_exporter_url }}"
+  command: "go get {{ mysqld_exporter_url }}"
   environment:
     PATH: "{{ ansible_env.PATH }}:{{ golang_install_path }}/bin"
     GOPATH: "{{ golang_gopath_home }}"
@@ -48,7 +42,3 @@
     - add mysqld_exporter
     - restart mysqld_exporter
     - check exporter port
-
-- name: remove git if previously installed
-  yum: pkg=git state=removed
-  when: gitinstalled.changed

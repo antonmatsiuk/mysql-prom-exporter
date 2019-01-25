@@ -16,4 +16,5 @@
   yum:
     name:
       - MySQL-python
+      - git
     state: installed
